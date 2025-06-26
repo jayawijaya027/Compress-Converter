@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zynvert</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #217a2c; /* hijau tua */
+            --secondary-color: #4caf50; /* hijau sedang */
+            --accent-color: #f7d900; /* kuning emas */
+            --gradient-primary: linear-gradient(135deg, #217a2c 0%, #4caf50 100%);
+            --gradient-header: linear-gradient(135deg, #217a2c 0%, #4caf50 100%);
+            --bg-main: #0d2b13; /* hijau sangat tua */
+            --bg-card: #eafbe6; /* hijau muda sangat terang */
+            --bg-inner: #d2f5c4; /* hijau muda */
+            --white-color: #ffffff;
+            --text-dark: #1a2e1a;
+            --text-muted: #3d5c3d;
+            --border-color: #b6e2b6;
+            --shadow-color: rgba(33, 122, 44, 0.12);
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-main);
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #217a2c 0%, #4caf50 100%);
+            color: #fff;
+            padding: 1.2rem 2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid #4caf50;
+        }
+        .header-bar .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-bar .logo-icon {
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0px;
+            color: var(--white-color);
+            font-size: 1.5rem;
+            vertical-align: middle;
+        }
+        .header-bar .header-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+        }
+        .header-bar .header-right {
+            display: flex;
+            align-items: center;
+        }
+        .header-bar .help-link {
+            color: var(--white-color);
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            background: rgba(255,255,255,0.08);
+            border-radius: 8px;
+            padding: 0.5rem 1.2rem;
+            transition: background 0.2s;
+        }
+        .header-bar .help-link:hover {
+            background: var(--secondary-color);
+            color: var(--white-color);
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .header-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem 0.5rem 1rem 0.5rem;
+                font-size: 1.3rem;
+            }
+            .header-bar .header-title {
+                font-size: 1.3rem;
+            }
+            .header-bar .logo-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1.1rem;
+            }
+            .header-bar .help-link {
+                font-size: 1rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 3rem 1.5rem;
+        }
+        .card-container {
+            background: var(--bg-card);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            margin-top: 2.5rem;
+            margin-bottom: 2.5rem;
+            padding: 2.5rem 2rem;
+        }
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: none;
+            background: var(--bg-inner);
+            padding: 1rem 1rem 0 1rem;
+            margin: 0;
+            border-radius: 18px 18px 0 0;
+        }
+        .nav-tabs .nav-link {
+            border: none;
+            border-radius: 16px 16px 0 0;
+            color: var(--text-muted);
+            font-weight: 600;
+            padding: 1rem 1.5rem;
+            margin-right: 0.5rem;
+            background: transparent;
+            transition: all 0.3s;
+            min-width: 140px;
+        }
+        .nav-tabs .nav-link.active {
+            background: var(--bg-card);
+            color: var(--primary-color);
+            font-weight: 700;
+            box-shadow: 0 -4px 20px var(--shadow-color);
+        }
+        .tab-content {
+            padding: 2rem 0.5rem 0.5rem 0.5rem;
+        }
+        .row.g-4 {
+            margin-left: 0;
+            margin-right: 0;
+            gap: 1.2rem;
+        }
+        .row.g-4.d-flex.flex-row.flex-wrap.justify-content-center.align-items-stretch {
+            gap: 1.2rem;
+        }
+        .col-lg-6.d-flex {
+            flex: 1 1 0;
+            min-width: 320px;
+            max-width: 600px;
+        }
+        .upload-area {
+            border: none;
+            border-radius: 18px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            background: var(--bg-card);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+        .upload-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .upload-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 1.1rem;
+            color: var(--text-dark);
+        }
+        .upload-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+        .supported-formats {
+            margin-bottom: 1.5rem;
+            background: var(--bg-inner);
+            border-radius: 8px;
+            padding: 0.9rem 1.2rem;
+            border: 1px solid var(--border-color);
+            font-size: 1rem;
+        }
+        .supported-formats strong {
+            color: var(--primary-color);
+        }
+        .custom-file-upload {
+            display: inline-block;
+            padding: 16px 32px;
+            cursor: pointer;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            min-width: 180px;
+            min-height: 48px;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+        .custom-file-upload:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 8px 25px var(--shadow-color);
+            color: white;
+        }
+        .compression-settings {
+            margin-top: 1.5rem;
+            padding: 1.5rem 1.2rem;
+            background: var(--bg-inner);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .compression-settings label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+        .compression-settings input[type="range"] {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+        .selected-file-info {
+            background-color: #fff;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        .selected-file-success {
+            display: none;
+            margin-bottom: 1.2rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+        .btn-primary, .custom-file-upload {
+            background: var(--gradient-primary);
+            color: var(--white-color);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            padding: 16px 32px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            margin-top: 1.2rem;
+        }
+        .btn-primary:hover, .custom-file-upload:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 6px 20px var(--shadow-color);
+        }
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .form-select {
+            border-radius: 12px;
+            padding: 14px 20px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-inner);
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 1.2rem;
+        }
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+        .loading i {
+            font-size: 3rem;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .section-title {
+            text-align: center;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 2.1rem;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.15rem;
+        }
+        @media (max-width: 992px) {
+            .main-container {
+                padding: 1.2rem 0.5rem;
+            }
+            .card-container {
+                padding: 1.2rem 0.5rem;
+            }
+            .upload-area {
+                padding: 1.2rem 0.5rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1.2rem 0.5rem;
+            }
+            .card-container {
+                padding: 1rem 0.25rem;
+            }
+            .upload-area {
+                padding: 1rem 0.25rem 1rem 0.25rem;
+            }
+            .btn-primary, .custom-file-upload, .selected-file-success {
+                min-width: 100%;
+                width: 100%;
+                box-sizing: border-box;
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .main-container {
+                padding: 0.5rem 0.1rem;
+            }
+            .card-container {
+                padding: 0.5rem 0.1rem;
+            }
+            .upload-title {
+                font-size: 1.1rem;
+            }
+            .btn-primary, .custom-file-upload, .selected-file-success {
+                font-size: 0.95rem;
+                min-height: 44px;
+            }
+            .upload-area {
+                padding: 0.5rem 0.1rem 0.5rem 0.1rem;
+            }
+        }
+        .footer {
+            background: linear-gradient(135deg, #217a2c 0%, #4caf50 100%);
+            color: white;
+            border-top: 1px solid #b6e2b6;
+            text-align: center;
+            padding: 1.2rem 0 0.7rem 0;
+            margin-top: 3rem;
+        }
+        .footer .logo-icon {
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+            color: var(--white-color);
+            font-size: 1.1rem;
+            vertical-align: middle;
+        }
+        .footer .fw-bold {
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <div class="header-left">
+            <span class="logo-icon"><i class="fas fa-tools"></i></span>
+            <span class="header-title">Zynvert</span>
+        </div>
+        <div class="header-right">
+            <a href="/help" class="help-link">Help</a>
+        </div>
+    </div>
+    <div class="main-container" style="margin-top: 40px;">
+        <div class="card-container">
+            <ul class="nav nav-tabs justify-content-center text-center" id="myTab" role="tablist" style="margin-bottom:2rem;">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="compress-tab" data-bs-toggle="tab" data-bs-target="#compress" type="button" role="tab">
+                        <i class="fas fa-compress-arrows-alt me-2"></i>Compress Gambar
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="converter-tab" data-bs-toggle="tab" data-bs-target="#converter" type="button" role="tab">
+                        <i class="fas fa-exchange-alt me-2"></i>Converter Gambar
+                    </button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                    <!-- Tab Kompresi -->
+                    <div class="tab-pane fade show active" id="compress" role="tabpanel">
+                        <h2 class="section-title">
+                            <i class="fas fa-compress-arrows-alt me-2"></i>
+                        Kompres Gambar
+                        </h2>
+                        <p class="section-subtitle">
+                        Kompres gambar ke ukuran lebih kecil dengan kualitas terbaik
+                        </p>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                                <div class="upload-area w-100 d-flex flex-column">
+                                    <div class="upload-icon">
+                                        <i class="fas fa-image"></i>
+                                    </div>
+                                    <h3 class="upload-title">Kompresi Gambar</h3>
+                                    <p class="upload-subtitle">Kompres gambar dengan kualitas yang dapat disesuaikan</p>
+                                    <div class="supported-formats mb-3">
+                                        <small class="text-muted">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            <strong>Format yang didukung:</strong> JPG, PNG, GIF, BMP, TIFF, WEBP
+                                        </small>
+                                    </div>
+                    <form action="/compress/image" method="post" enctype="multipart/form-data" class="upload-form">
+                                    <label class="custom-file-upload">
+                                        <i class="fas fa-folder-open me-2"></i>
+                                        Pilih Gambar
+                                        <input type="file" name="file" class="file-input" accept="image/*" required style="display: none;">
+                        </label>
+                                    <div class="selected-file-success"></div>
+                                    <div class="compression-settings" style="display:none;">
+                                        <div class="selected-file-info"></div>
+                                         <label for="quality" class="form-label mt-2">Kualitas (1-100):</label>
+                                        <input type="range" class="form-range" name="quality" min="1" max="100" value="50">
+                        </div>
+                                    <button type="submit" class="btn btn-primary submit-btn" disabled>
+                                <i class="fas fa-compress-alt me-2"></i>
+                                Kompres Gambar
+                            </button>
+                    </form>
+                </div>
+            </div>
+                    </div>
+                </div>
+                <!-- Tab Converter -->
+                <div class="tab-pane fade" id="converter" role="tabpanel">
+                    <h2 class="section-title">
+                        <i class="fas fa-exchange-alt me-2"></i>
+                        Konversi Gambar
+                    </h2>
+                    <p class="section-subtitle">
+                        Konversi gambar ke berbagai format yang didukung
+                    </p>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="upload-area">
+                                <div class="converter-icon">
+                                    <i class="fas fa-image"></i>
+                                </div>
+                                <h3 class="upload-title">Image Converter</h3>
+                                <p class="upload-subtitle">Konversi gambar ke berbagai format populer dengan kualitas tinggi</p>
+                                <div class="supported-formats mb-3">
+                                    <small class="text-muted">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        <strong>Format yang didukung:</strong> JPG, PNG, GIF, BMP, TIFF, WEBP
+                                    </small>
+                                </div>
+                                <form action="/convert/image" method="post" enctype="multipart/form-data" class="upload-form">
+                                    <label class="custom-file-upload">
+                                        <i class="fas fa-upload me-2"></i>
+                                        Pilih Gambar
+                                        <input type="file" name="file" class="file-input" accept="image/*" required style="display: none;">
+                        </label>
+                                    <div class="selected-file-success"></div>
+                                    <div class="compression-settings" style="display:none;">
+                                        <div class="selected-file-info"></div>
+                        </div>
+                                    <div class="mt-3">
+                                        <select name="format" class="form-select" required>
+                                            <option value="">Pilih Format Output</option>
+                                            <option value="jpg">JPG</option>
+                                            <option value="png">PNG</option>
+                                            <option value="gif">GIF</option>
+                                            <option value="webp">WEBP</option>
+                                            <option value="bmp">BMP</option>
+                                            <option value="tiff">TIFF</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 mt-3 submit-btn" disabled>
+                                        <i class="fas fa-exchange-alt me-2"></i>
+                                        Konversi Gambar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                                </div>
+                                </div>
+            </div>
+        </div>
+        
+        <div class="loading" id="loading">
+            <i class="fas fa-spinner"></i>
+            <p class="mt-3">Sedang memproses file...</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <span class="logo-icon"><i class="fas fa-tools"></i></span>
+            <span class="fw-bold">Zynvert &copy; 2025 &bull; Kompres & Konversi Gambar</span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.file-input').forEach(input => {
+                input.addEventListener('change', function(e) {
+                    const form = e.target.closest('.upload-form');
+                    const successDiv = form.querySelector('.selected-file-success');
+                    const settingsDiv = form.querySelector('.compression-settings');
+                    const infoDiv = form.querySelector('.selected-file-info');
+                    const submitBtn = form.querySelector('.submit-btn');
+
+                    if (e.target.files && e.target.files[0]) {
+                        const file = e.target.files[0];
+                        const fileName = file.name;
+                        const fileSize = (file.size / 1024).toFixed(2) + ' KB';
+                        
+                        infoDiv.innerHTML = `<p class="mb-1"><strong>Nama:</strong> ${fileName}</p><p class="mb-0"><strong>Ukuran:</strong> ${fileSize}</p>`;
+                        successDiv.innerHTML = `<i class="fas fa-check-circle me-1"></i> File dipilih: ${fileName}`;
+                        
+                        successDiv.style.display = 'block';
+                        settingsDiv.style.display = 'flex';
+                        submitBtn.disabled = false;
+
+                    } else {
+                        successDiv.style.display = 'none';
+                        settingsDiv.style.display = 'none';
+                        submitBtn.disabled = true;
+                    }
+            });
+        });
+
+            const forms = document.querySelectorAll('.upload-form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function (e) {
+            const loading = document.getElementById('loading');
+                    loading.style.display = 'flex';
+                    setTimeout(() => {
+                loading.style.display = 'none';
+                    }, 3000);
+            });
+        });
+            window.addEventListener('focus', function() {
+                const loading = document.getElementById('loading');
+                    loading.style.display = 'none';
+                });
+            });
+    </script>
+</body>
+</html> 
